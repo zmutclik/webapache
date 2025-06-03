@@ -1,0 +1,28 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - CONTAINER_DOMAIN=${CONTAINER_DOMAIN}
+        - PHPVERSION=${PHPVERSION}
+    container_name: ${CONTAINER_NAME}
+    hostname: ${CONTAINER_HOSTNAME}
+    environment:
+      - CONTAINER_DOMAIN=${CONTAINER_DOMAIN}
+      - PHPVERSION=${PHPVERSION}
+    volumes:
+      - ./www:/var/www/html
+    dns:
+      - ${DNS1}
+      - ${DNS2}
+    ports:
+      - "8088:80/tcp"
+#     networks:
+#       macvlan00:
+#         ipv4_address: ${IPv4}
+
+# networks:
+#   macvlan00:
+#     external:
+#       name: ${MACVLAN}
