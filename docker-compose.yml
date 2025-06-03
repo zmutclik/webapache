@@ -1,3 +1,9 @@
+#volumes:
+#  webapp:
+#    driver_opts:
+#      type: nfs 
+#      o: addr=${NFS_ADDRESS},nfsvers=4
+#      device: ${NFS_PATH}
 services:
   web:
     build:
@@ -11,18 +17,18 @@ services:
     environment:
       - CONTAINER_DOMAIN=${CONTAINER_DOMAIN}
       - PHPVERSION=${PHPVERSION}
-    volumes:
-      - ./www:/var/www/html
+#    volumes:
+#      - 'webapp:/var/www/html'
     dns:
       - ${DNS1}
       - ${DNS2}
     ports:
       - "8088:80/tcp"
-#     networks:
-#       macvlan00:
-#         ipv4_address: ${IPv4}
+#    networks:
+#      macvlan00:
+#        ipv4_address: ${IPv4}
 
-# networks:
-#   macvlan00:
-#     external:
-#       name: ${MACVLAN}
+#networks:
+#  macvlan00:
+#    external:
+#      name: ${MACVLAN}
