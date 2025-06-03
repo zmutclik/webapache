@@ -17,7 +17,8 @@ services:
     environment:
       - CONTAINER_DOMAIN=${CONTAINER_DOMAIN}
       - PHPVERSION=${PHPVERSION}
-#    volumes:
+    volumes:
+      - './www:/var/www/html'
 #      - 'webapp:/var/www/html'
     dns:
       - ${DNS1}

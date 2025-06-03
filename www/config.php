@@ -1,0 +1,4 @@
+<?php
+$DATABASE_APP_ADDRESS    = "127.0.0.1";
+$DATABASE_APP_USERNAME    = "root";
+$DATABASE_APP_PASSWORD    = "";

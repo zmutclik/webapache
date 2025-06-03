@@ -1,10 +1,15 @@
-<?php $link = mysqli_connect("127.0.0.1", "", "", null);
-if (!$link) {
-    echo "Error: Unable to connect to MySQL." . PHP_EOL;
-    echo "Debugging errno: " . mysqli_connect_errno() . PHP_EOL;
-    echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;
-    exit;
+<?php
+require_once __DIR__ . '/config.php';
+try {
+    $link = mysqli_connect($DATABASE_APP_ADDRESS, $DATABASE_APP_USERNAME, $DATABASE_APP_PASSWORD, null);
+    if (!$link) {
+        throw new Exception("Error: Unable to connect to MySQL. " . mysqli_connect_error(), mysqli_connect_errno());
+    }
+    echo "Success: A proper connection to MySQL was made! The docker database is great." . PHP_EOL;
+    echo "Host information: " . mysqli_get_host_info($link) . PHP_EOL;
+    mysqli_close($link);
+} catch (Exception $e) {
+    echo $e->getMessage() . PHP_EOL;
+    echo "<br>";
+    echo "Debugging errno: " . $e->getCode() . PHP_EOL;
 }
-echo "Success: A proper connection to MySQL was made! The docker database is great." . PHP_EOL;
-echo "Host information: " . mysqli_get_host_info($link) . PHP_EOL;
-mysqli_close($link);

@@ -77,3 +77,4 @@ cython_debug/
 *.env
 *.local
 *.log
+.DS_Store
