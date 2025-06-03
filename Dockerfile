@@ -19,6 +19,10 @@ RUN apt -y install libmcrypt-dev
 RUN sed -i '6i\Listen 8080' /etc/apache2/ports.conf
 RUN echo '#!/bin/bash\n\n\nsource /etc/apache2/envvars\n#tail -F /var/log/apache2/* &\nexec apache2 -D FOREGROUND' > /boot/start.sh
 RUN chmod +x /boot/start.sh
+COPY www/index.php /var/www/html/index.php
+COPY www/phpinfo.php /var/www/html/phpinfo.php
+COPY www/test_db.php /var/www/html/test_db.php
+RUN rm /var/www/html/index.html
 RUN apt -y install imagemagick imagemagick-doc
 RUN apt -y install php$PHPVERSION-Imagick
 RUN apt -y install php$PHPVERSION-intl
