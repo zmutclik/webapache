@@ -10,7 +10,7 @@ RUN add-apt-repository --yes ppa:ondrej/php
 RUN apt-get -y install apache2
 RUN echo "ServerName $CONTAINER_DOMAIN" | tee -a /etc/apache2/apache2.conf >/dev/null
 RUN apt -y install mariadb-client
-RUN apt -y install php$PHPVERSION php$PHPVERSION-mysql libapache2-mod-php$PHPVERSION php$PHPVERSION-cli php$PHPVERSION-cgi php$PHPVERSION-gd zip
+RUN apt -y install php$PHPVERSION php$PHPVERSION-mysql libapache2-mod-php$PHPVERSION php$PHPVERSION-cli php$PHPVERSION-cgi php$PHPVERSION-gd zip php$PHPVERSION-xml
 RUN a2enmod rewrite
 RUN phpenmod mbstring
 RUN apt -y install php$PHPVERSION-dev
