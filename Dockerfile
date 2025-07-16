@@ -1,6 +1,6 @@
 FROM ubuntu
 LABEL maintainer="Fahrudin Hariadi<fahrudin.hariadi@gmail.com>"
-ARG CONTAINER_DOMAIN
+ARG DOMAIN
 ARG PHPVERSION
 RUN apt update
 RUN apt -y upgrade
@@ -8,7 +8,7 @@ RUN ln -snf /usr/share/zoneinfo/Asia/Jakarta /etc/localtime && echo Asia/Jakarta
 RUN apt -y install iproute2 nano iputils-ping lsb-release gnupg2 ca-certificates apt-transport-https software-properties-common gcc make autoconf libc-dev pkg-config logrotate
 RUN add-apt-repository --yes ppa:ondrej/php
 RUN apt-get -y install apache2
-RUN echo "ServerName $CONTAINER_DOMAIN" | tee -a /etc/apache2/apache2.conf >/dev/null
+RUN echo "ServerName $DOMAIN" | tee -a /etc/apache2/apache2.conf >/dev/null
 RUN apt -y install mariadb-client
 RUN apt -y install php$PHPVERSION php$PHPVERSION-mysql libapache2-mod-php$PHPVERSION php$PHPVERSION-cli php$PHPVERSION-cgi php$PHPVERSION-gd zip php$PHPVERSION-xml
 RUN a2enmod rewrite
