@@ -5,12 +5,12 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        - DOMAIN=${DOMAIN}
         - PHPVERSION=${PHPVERSION}
     container_name: ${CONTAINER_NAME}
     hostname: ${HOSTNAME}
     restart: always
     volumes:
+      - './virtualhost.conf:/etc/apache2/sites-available/000-default.conf'
       - './www:/var/www/html'
 #      - 'webapp:/var/www/html'
     ports:
@@ -30,7 +30,6 @@ networks:
 #      config:
 #        - subnet: ${SUBNET}
 #          gateway: ${GATEWAY}
-
 
 #volumes:
 #  webapp:
