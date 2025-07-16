@@ -6,6 +6,7 @@ services:
       dockerfile: Dockerfile
       args:
         - PHPVERSION=${PHPVERSION}
+        - SERVERNAME=${SERVERNAME}
     container_name: ${CONTAINER_NAME}
     hostname: ${HOSTNAME}
     restart: always
