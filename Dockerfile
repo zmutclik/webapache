@@ -27,4 +27,4 @@ RUN apt -y install git composer
 RUN sed -i "s/AllowOverride None/AllowOverride All/g" /etc/apache2/apache2.conf
 EXPOSE 80
 WORKDIR /var/www/html/
-CMD /boot/start.sh
+CMD ["/boot/start.sh"]
