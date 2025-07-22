@@ -12,6 +12,7 @@ services:
     restart: always
     volumes:
       - './virtualhost.conf:/etc/apache2/sites-available/000-default.conf'
+      - './boot.sh:/boot/start.sh'
       - './www:/var/www/html'
 #      - 'webapp:/var/www/html'
     ports:
