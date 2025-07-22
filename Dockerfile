@@ -5,7 +5,7 @@ ARG PHPVERSION
 RUN apt update
 RUN apt -y upgrade
 RUN ln -snf /usr/share/zoneinfo/Asia/Jakarta /etc/localtime && echo Asia/Jakarta > /etc/timezone
-RUN apt -y install iproute2 nano iputils-ping lsb-release gnupg2 ca-certificates apt-transport-https software-properties-common gcc make autoconf libc-dev pkg-config logrotate cron
+RUN apt -y install iproute2 nano iputils-ping lsb-release gnupg2 ca-certificates apt-transport-https software-properties-common gcc make autoconf libc-dev pkg-config logrotate cron iputils-ping traceroute
 RUN add-apt-repository --yes ppa:ondrej/php
 RUN apt-get -y install apache2
 RUN echo "ServerName $SERVERNAME" | tee -a /etc/apache2/apache2.conf >/dev/null
