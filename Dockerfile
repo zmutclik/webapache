@@ -19,7 +19,7 @@ RUN apt -y install libmcrypt-dev
 RUN rm /var/www/html/index.html
 RUN apt -y install imagemagick imagemagick-doc
 RUN apt -y install php$PHPVERSION-Imagick
-RUN apt -y install php$PHPVERSION-intl
+RUN apt -y install php$PHPVERSION-intl php$PHPVERSION-curl
 RUN apt -y install git composer
 RUN sed -i "s/AllowOverride None/AllowOverride All/g" /etc/apache2/apache2.conf
 EXPOSE 80
