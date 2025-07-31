@@ -16,7 +16,7 @@ services:
       - ./www:/var/www/html
 #      - webapp:/var/www/html
       - ./boot.sh:/boot/start.sh
-      - ./virtualhost.conf:/etc/apache2/sites-available/000-default.conf
+#      - ./virtualhost.conf:/etc/apache2/sites-available/000-default.conf
     ports:
       - "${APP_PORT}:80/tcp"
     networks:
