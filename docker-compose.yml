@@ -7,6 +7,8 @@ services:
       args:
         - PHPVERSION=${PHPVERSION}
         - SERVERNAME=${SERVERNAME}
+    env_file:
+      - stack.env
     container_name: ${CONTAINER_NAME}
     hostname: ${HOSTNAME}
     restart: always
