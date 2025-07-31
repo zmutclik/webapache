@@ -74,7 +74,7 @@ cython_debug/
 .idea/
 
 # Local settings
-*.env
+#*.env
 *.local
 *.log
 .DS_Store
