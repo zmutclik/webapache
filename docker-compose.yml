@@ -13,8 +13,8 @@ services:
     hostname: ${HOSTNAME}
     restart: always
     volumes:
-      - ./www:/var/www/html
-#      - webapp:/var/www/html
+      - webapp:/var/www/html
+#      - ./www:/var/www/html
 #      - type: volume
 #        source: virtualhostconf
 #        target: /etc/apache2/sites-available/000-default.conf
@@ -43,8 +43,8 @@ networks:
 #        - subnet: ${SUBNET}
 #          gateway: ${GATEWAY}
 
-#volumes:
-#  webapp:
+volumes:
+  webapp:
 #    driver_opts:
 #      type: nfs
 #      o: addr=${NFS_ADDRESS},nfsvers=4
