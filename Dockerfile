@@ -51,4 +51,3 @@ RUN rm /var/www/html/index.html
 RUN sed -i "s/AllowOverride None/AllowOverride All/g" /etc/apache2/apache2.conf
 EXPOSE 80
 WORKDIR /var/www/html/
-CMD ["/boot/start.sh"]
