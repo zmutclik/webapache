@@ -12,8 +12,8 @@ services:
     container_name: ${CONTAINER_NAME}
     hostname: ${HOSTNAME}
     restart: always
-    volumes:
-      - webapp:/var/www/html
+#    volumes:
+#      - webapp:/var/www/html
 #      - ./www:/var/www/html
 #      - type: volume
 #        source: virtualhostconf
@@ -43,8 +43,8 @@ networks:
 #        - subnet: ${SUBNET}
 #          gateway: ${GATEWAY}
 
-volumes:
-  webapp:
+#volumes:
+#  webapp:
 #    driver_opts:
 #      type: nfs
 #      o: addr=${NFS_ADDRESS},nfsvers=4
