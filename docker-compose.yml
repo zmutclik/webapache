@@ -7,51 +7,44 @@ services:
       args:
         - PHPVERSION=${PHPVERSION}
         - SERVERNAME=${SERVERNAME}
-    env_file:
-      - stack.env
+        - DB_HOST=${DB_HOST}
+        - DB_USER=${DB_USER}
+        - DB_PASS=${DB_PASS}
+        - DB_NAME=${DB_NAME}
+    environment:
+      - SERVERNAME=${SERVERNAME}
+      - PHPVERSION=${PHPVERSION}
+      - DOCUMENTROOT=${DOCUMENTROOT}
+      - DB_HOST=${DB_HOST}
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_PASS}
+      - DB_NAME=${DB_NAME}
     container_name: ${CONTAINER_NAME}
     hostname: ${HOSTNAME}
     restart: always
-#    volumes:
-#      - webapp:/var/www/html
-#      - ./www:/var/www/html
-#      - type: volume
-#        source: virtualhostconf
-#        target: /etc/apache2/sites-available/000-default.conf
-#        volume:
-#          nocopy: true
+    volumes:
+     - webapp:/var/www/html
     ports:
       - "${APP_PORT}:80/tcp"
-    networks:
-      net:
-        ipv4_address: ${IPv4}
-    dns:
-      - ${DNS1}
-      - ${DNS2}
-    entrypoint: |
-      bash -c "
-      /etc/init.d/cron start &&
-      source /etc/apache2/envvars &&
-      exec apache2 -D FOREGROUND"
+#    networks:
+#      net:
+#        ipv4_address: ${IPv4}
+#    dns:
+#      - ${DNS1}
+#      - ${DNS2}
 
-networks:
-  net:
-    name: ${NETWORK}
+#networks:
+#  net:
+#    name: ${NETWORK}
 #    external: true
 #    ipam:
 #      config:
 #        - subnet: ${SUBNET}
 #          gateway: ${GATEWAY}
 
-#volumes:
-#  webapp:
+volumes:
+  webapp:
 #    driver_opts:
 #      type: nfs
 #      o: addr=${NFS_ADDRESS},nfsvers=4
 #      device: ${NFS_PATH}
-#  virtualhostconf:
-#    driver: local
-#    driver_opts:
-#      type: nfs
-#      o: addr=${NFS_ADDRESS},ro,nfsvers=4
-#      device: "${NFS_PATH}/virtualhost.conf"

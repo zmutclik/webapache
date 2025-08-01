@@ -30,11 +30,11 @@
                             <li><?php
                                 require_once __DIR__ . '/config.php';
                                 try {
-                                    $link = @mysqli_connect($DATABASE_APP_ADDRESS, $DATABASE_APP_USERNAME, $DATABASE_APP_PASSWORD, null);
+                                    $link = @mysqli_connect($db_host, $db_user, $db_pass, $db_name);
                                     if (mysqli_connect_errno()) {
                                         throw new Exception('MySQL connection failed: ' . mysqli_connect_error());
                                     } else {
-                                        printf('Server [%s@%s] -> %s', $DATABASE_APP_USERNAME, $DATABASE_APP_ADDRESS, mysqli_get_server_info($link));
+                                        printf('Server [%s@%s] -> %s', $db_user, $db_host, mysqli_get_server_info($link));
                                     }
                                     mysqli_close($link);
                                 } catch (Exception $e) {

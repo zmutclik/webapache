@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/config.php';
 try {
-    $link = mysqli_connect($DATABASE_APP_ADDRESS, $DATABASE_APP_USERNAME, $DATABASE_APP_PASSWORD, null);
+    $link = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
     if (!$link) {
         throw new Exception("Error: Unable to connect to MySQL. " . mysqli_connect_error(), mysqli_connect_errno());
     }

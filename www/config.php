@@ -1,4 +1,5 @@
 <?php
-$DATABASE_APP_ADDRESS    = "127.0.0.1";
-$DATABASE_APP_USERNAME    = "root";
-$DATABASE_APP_PASSWORD    = "";
+$db_host = getenv('DB_HOST');
+$db_user = getenv('DB_USER');
+$db_pass = getenv('DB_PASSWORD');
+$db_name = getenv('DB_NAME');
