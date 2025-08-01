@@ -2,16 +2,12 @@ FROM ubuntu
 LABEL maintainer="Fahrudin Hariadi<fahrudin.hariadi@gmail.com>"
 ARG SERVERNAME
 ARG PHPVERSION
-ARG DB_HOST
-ARG DB_USER
-ARG DB_PASS
-ARG DB_NAME
 ENV SERVERNAME=${SERVERNAME}
 ENV PHPVERSION=${PHPVERSION}
-ENV DB_HOST=${DB_HOST}
-ENV DB_USER=${DB_USER}
-ENV DB_PASS=${DB_PASS}
-ENV DB_NAME=${DB_NAME}
+ENV DB_HOST=127.0.0.1
+ENV DB_USER=root
+ENV DB_PASS=password
+ENV DB_NAME=db
 RUN apt update && apt -y upgrade \
     && apt -y install iproute2 \
     nano \
