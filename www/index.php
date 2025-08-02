@@ -29,7 +29,6 @@
                             ?>
                             <li><?= apache_get_version(); ?></li>
                             <li>PHP<?= phpversion(); ?></li>
-                            <li></li>
                             <li>DB-HOST = <?= $db_host; ?></li>
                             <li>DB-USER = <?= $db_user; ?></li>
                             <li>DB-PASS = <?= $db_pass; ?></li>
