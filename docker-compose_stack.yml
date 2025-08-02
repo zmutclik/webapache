@@ -15,11 +15,16 @@ services:
     volumes:
      - datawww:/var/www/html
     ports:
-      - "${APP_PORT}:80/tcp"
+      - "${APPS_PORT}:80/tcp"
     dns:
       - ${DNS1}
       - ${DNS2}
+    networks:
+      net:
 
+networks:
+  net:
+  
 volumes:
   datawww:
 #    driver_opts:
