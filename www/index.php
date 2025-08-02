@@ -24,15 +24,21 @@
                     <h3 class='title is-3 has-text-centered'>Environment</h3>
                     <hr>
                     <div class='content'>
-                        <ul>
+                        <ul><?php
+                                require_once __DIR__ . '/config.php';
+                            ?>
                             <li><?= apache_get_version(); ?></li>
                             <li>PHP<?= phpversion(); ?></li>
+                            <li></li>
+                            <li>DB-HOST = <?= $db_host; ?></li>
+                            <li>DB-USER = <?= $db_user; ?></li>
+                            <li>DB-PASS = <?= $db_pass; ?></li>
+                            <li>DB-NAME = <?= $db_name; ?></li>
                             <li><?php
-                                require_once __DIR__ . '/config.php';
                                 try {
                                     $link = @mysqli_connect($db_host, $db_user, $db_pass, $db_name);
                                     if (mysqli_connect_errno()) {
-                                        throw new Exception('MySQL connection failed: ' . mysqli_connect_error());
+                                        throw new Exception('Database connection failed: ' . mysqli_connect_error());
                                     } else {
                                         printf('Server [%s@%s] -> %s', $db_user, $db_host, mysqli_get_server_info($link));
                                     }

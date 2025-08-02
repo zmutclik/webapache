@@ -1,8 +1,11 @@
 #!/bin/bash
 
-sed -i "s|${SERVERNAME}|${SERVERNAME}|g" /etc/apache2/apache2.conf
-sed -i "s|${SERVERNAME}|${SERVERNAME}|g" /etc/apache2/sites-available/000-default.conf
-sed -i "s|${DOCUMENTROOT}|${DOCUMENTROOT}|g" /etc/apache2/sites-available/000-default.conf
+export SERVERNAME=${SERVERNAME}
+export DOCUMENTROOT=${DOCUMENTROOT}
+export DB_HOST=${DB_HOST}
+export DB_APPUSER=${DB_USER}
+export DB_APPPASS=${DB_PASS}
+export DB_NAME=${DB_NAME}
 
 source /etc/apache2/envvars
 /etc/init.d/cron start
