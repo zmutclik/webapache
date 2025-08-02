@@ -42,6 +42,27 @@ services:
       net:
     depends_on:
       - mariadb
+  webhook:
+    image: zmutclik/git_webhook:latest
+    container_name: ${CONTAINER_NAME}_webhook
+    ports:
+      - "${HOOK_PORT}:8000"
+    volumes:
+      - repository:/app/repository
+      - logs:/app/logs
+    environment:
+      - BRANCH=main
+    restart: always
+    dns:
+      - ${DNS1}
+      - ${DNS2}
+    networks:
+      net:
+    depends_on:
+      - mariadb
+      - web
+#    secrets:
+#      - webhook_secret
 
 networks:
   net:
@@ -57,3 +78,13 @@ volumes:
 #      type: nfs
 #      o: addr=${NFS_ADDRESS},nfsvers=4
 #      device: ${NFS_DB_PATH}
+  repository:
+#    driver_opts:
+#      type: nfs
+#      o: addr=${NFS_ADDRESS},nfsvers=4
+#      device: ${NFS_APP_PATH}
+  logs:
+
+#secrets:
+#  webhook_secret:
+#    file: ./webhook_secret.txt
