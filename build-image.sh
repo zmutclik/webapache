@@ -9,4 +9,4 @@ docker build \
 
 # docker login
 docker tag webapache:${PHPVERSION} zmutclik/webapache:${PHPVERSION}
-# docker push zmutclik/webapache:${PHPVERSION}
+docker push zmutclik/webapache:${PHPVERSION}
