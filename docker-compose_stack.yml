@@ -30,4 +30,4 @@ volumes:
 #    driver_opts:
 #      type: nfs
 #      o: addr=${NFS_ADDRESS},nfsvers=4
-#      device: ${NFS_PATH}
+#      device: ${NFS_APPS_PATH}

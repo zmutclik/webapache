@@ -52,6 +52,7 @@ services:
       - logs:/app/logs
     environment:
       - BRANCH=main
+      - REPO_PATH=/app/repository
     restart: always
     dns:
       - ${DNS1}
@@ -72,17 +73,17 @@ volumes:
 #    driver_opts:
 #      type: nfs
 #      o: addr=${NFS_ADDRESS},nfsvers=4
-#      device: ${NFS_APP_PATH}
+#      device: ${NFS_APPS_PATH}
   data:
 #    driver_opts:
 #      type: nfs
 #      o: addr=${NFS_ADDRESS},nfsvers=4
-#      device: ${NFS_DB_PATH}
+#      device: ${NFS_DATA_PATH}
   repository:
 #    driver_opts:
 #      type: nfs
 #      o: addr=${NFS_ADDRESS},nfsvers=4
-#      device: ${NFS_APP_PATH}
+#      device: ${NFS_APPS_PATH}
   logs:
 
 #secrets:
