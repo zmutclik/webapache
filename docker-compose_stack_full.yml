@@ -49,10 +49,12 @@ services:
       - "${HOOK_PORT}:8000"
     volumes:
       - repository:/app/repository
+      - secrets:/app/secrets
       - logs:/app/logs
     environment:
-      - BRANCH=main
-      - REPO_PATH=/app/repository
+      - BRANCH=${BRANCH}
+      - REPO_PATH=${REPO_PATH}
+      - GIT_URL_SSH=${GIT_URL_SSH}
     restart: always
     dns:
       - ${DNS1}
@@ -62,8 +64,6 @@ services:
     depends_on:
       - mariadb
       - web
-#    secrets:
-#      - webhook_secret
 
 networks:
   net:
@@ -84,8 +84,5 @@ volumes:
 #      type: nfs
 #      o: addr=${NFS_ADDRESS},nfsvers=4
 #      device: ${NFS_APPS_PATH}
+  secrets:
   logs:
-
-#secrets:
-#  webhook_secret:
-#    file: ./webhook_secret.txt
