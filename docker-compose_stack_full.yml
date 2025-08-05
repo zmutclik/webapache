@@ -46,7 +46,7 @@ services:
     image: zmutclik/git_webhook:latest
     container_name: ${CONTAINER_NAME}_webhook
     ports:
-      - "${HOOK_PORT}:8000"
+      - "${HOOK_PORT}:7000"
     volumes:
       - repository:/app/repository
       - secrets:/app/secrets
