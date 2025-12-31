@@ -1,0 +1,29 @@
+
+services:
+  web:
+    image: zmutclik/webapache:8.3
+    environment:
+      - SERVERNAME=example.com
+      - PHPVERSION=8.3
+      - DOCUMENTROOT=/var/www/html
+      - DB_HOST=127.0.0.1
+      - DB_USER=user
+      - DB_PASS=pass
+      - DB_NAME=db
+    container_name: example
+    hostname: example
+    restart: always
+    volumes:
+     - datawww:/var/www/html
+    ports:
+      - "8099:80/tcp"
+    dns:
+      - 192.168.51.51
+      - 192.168.88.1
+
+volumes:
+  datawww:
+#    driver_opts:
+#      type: nfs
+#      o: addr=192.168.1.2,nfsvers=4
+#      device: :/exported/path/apps
