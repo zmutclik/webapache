@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM debian:latest
 LABEL maintainer="Fahrudin Hariadi<fahrudin.hariadi@gmail.com>"
 ARG SERVERNAME
 ARG PHPVERSION
@@ -16,7 +16,7 @@ RUN apt update && apt -y upgrade \
     gnupg2 \
     ca-certificates \
     apt-transport-https \
-    software-properties-common \
+    curl \
     gcc \
     make \
     autoconf \
@@ -26,13 +26,14 @@ RUN apt update && apt -y upgrade \
     cron \
     iputils-ping \
     traceroute \
-    gh \
     git \
-    composer \
-    imagemagick imagemagick-doc \
+    imagemagick \
     zip \
     && ln -snf /usr/share/zoneinfo/Asia/Jakarta /etc/localtime && echo Asia/Jakarta > /etc/timezone \
-    && add-apt-repository --yes ppa:ondrej/php && apt-get -y install apache2 \
+    && curl -sSLo /usr/share/keyrings/deb.sury.org-php.gpg https://packages.sury.org/php/apt.gpg \
+    && echo "deb [signed-by=/usr/share/keyrings/deb.sury.org-php.gpg] https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list \
+    && apt update \
+    && apt -y install apache2 \
     && apt -y install php$PHPVERSION \
     php$PHPVERSION-mysql \
     libapache2-mod-php$PHPVERSION \
@@ -53,7 +54,7 @@ RUN apt update && apt -y upgrade \
     && a2enmod rewrite && phpenmod mbstring \
     && rm /var/www/html/index.html && sed -i "s/AllowOverride None/AllowOverride All/g" /etc/apache2/apache2.conf \
     && echo 'ServerName ${SERVERNAME}' | tee -a /etc/apache2/apache2.conf >/dev/null \
-    &&  apt-get clean && rm -rf /var/lib/apt/lists/*
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 COPY entrypoint.sh /usr/local/bin/
 COPY virtualhost.conf /etc/apache2/sites-available/000-default.conf
 COPY ./www /var/www/html
