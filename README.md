@@ -112,7 +112,7 @@ docker compose -f docker-compose_stack_full.yml up -d
 | `HOOK_PORT` | Port Git Webhook (host) | `7000` |
 | `SERVERNAME` | ServerName Apache | `example.com` |
 | `DOCUMENTROOT` | DocumentRoot Apache | `/var/www/html` |
-| `PHPVERSION` | Versi PHP (8.1, 8.2, 8.3, dsb) | `8.1` |
+| `PHPVERSION` | Versi PHP (8.2, 8.3, 8.4, dsb) | `8.3` |
 | `DB_HOST` | Host database | `mariadb` |
 | `APP_DEBUG` | `1` mengaktifkan `phpinfo.php` (jangan di production) | `0` |
 | `DB_ROOTPASSWORD` | Password root MariaDB | `password` |
@@ -180,7 +180,6 @@ Image tersedia di: [https://hub.docker.com/repository/docker/zmutclik/webapache/
 ```bash
 docker pull zmutclik/webapache:8.3
 docker pull zmutclik/webapache:8.2
-docker pull zmutclik/webapache:8.1
 ```
 
 ## Lisensi
