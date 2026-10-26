@@ -4,7 +4,7 @@ Docker image LAMP stack (Linux, Apache, MariaDB, PHP) berbasis Debian yang siap 
 
 ## Fitur
 
-- ✅ **Debian Latest** sebagai base image
+- ✅ **Debian Trixie** sebagai base image
 - ✅ **Apache 2** dengan `mod_rewrite` dan `AllowOverride All`
 - ✅ **PHP** versi konfigurabel via build arg (`PHPVERSION`)
 - ✅ **MariaDB Client** bawaan untuk koneksi database
@@ -147,13 +147,18 @@ Script akan:
 
 | Volume | Deskripsi |
 |---|---|
-| `datawww` | Data aplikasi web (`/var/www/html`) |
+| `datawww` | Data aplikasi web (`/var/www/html`), di mode full stack juga di-mount ke webhook sebagai `REPO_PATH` |
 | `data` | Data MariaDB (`/var/lib/mysql`) |
-| `repository` | Repository Git (untuk webhook) |
 | `secrets` | Secrets untuk webhook |
 | `logs` | Log webhook |
 
 > **Catatan**: Uncomment bagian `driver_opts` di docker-compose untuk mengaktifkan NFS mount.
+
+> **Auto-deploy**: panggil `POST /clone` di webhook sekali untuk inisialisasi. Endpoint ini **menghapus isi `datawww`** lalu meng-clone `GIT_URL_SSH`. Setelah itu push ke `BRANCH` otomatis di-pull. Jangan buka `HOOK_PORT` ke publik tanpa proxy/firewall, karena `/clone` dan `/manual-pull` tidak memakai autentikasi.
+
+## Log
+
+Log Apache dikirim ke stdout/stderr container, lihat dengan `docker logs <container>`.
 
 ## Network
 

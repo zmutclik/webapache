@@ -1,12 +1,13 @@
-FROM debian:latest
+FROM debian:trixie
 LABEL maintainer="Fahrudin Hariadi<fahrudin.hariadi@gmail.com>"
-ARG SERVERNAME
-ARG PHPVERSION
+ARG SERVERNAME=localhost
+ARG PHPVERSION=8.3
 ENV SERVERNAME=${SERVERNAME}
 ENV PHPVERSION=${PHPVERSION}
+ENV DOCUMENTROOT=/var/www/html
 ENV DB_HOST=127.0.0.1
 ENV DB_USER=root
-ENV DB_PASS=password
+ENV DB_PASS=
 ENV DB_NAME=db
 RUN apt update && apt -y upgrade \
     && apt -y install iproute2 \
@@ -54,6 +55,10 @@ RUN apt update && apt -y upgrade \
     && a2enmod rewrite && phpenmod mbstring \
     && rm /var/www/html/index.html && sed -i "s/AllowOverride None/AllowOverride All/g" /etc/apache2/apache2.conf \
     && echo 'ServerName ${SERVERNAME}' | tee -a /etc/apache2/apache2.conf >/dev/null \
+    && ln -sfT /dev/stderr /var/log/apache2/error.log \
+    && ln -sfT /dev/stdout /var/log/apache2/access.log \
+    && ln -sfT /dev/stdout /var/log/apache2/other_vhosts_access.log \
+    && rm -f /etc/logrotate.d/apache2 \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 COPY entrypoint.sh /usr/local/bin/
 COPY virtualhost.conf /etc/apache2/sites-available/000-default.conf

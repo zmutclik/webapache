@@ -49,7 +49,7 @@ services:
     ports:
       - "${HOOK_PORT}:7000"
     volumes:
-      - repository:/app/repository
+      - datawww:${REPO_PATH:-/app/repository}
       - secrets:/app/secrets
       - logs:/app/logs
     environment:
@@ -80,10 +80,5 @@ volumes:
 #      type: nfs
 #      o: addr=${NFS_ADDRESS},nfsvers=4
 #      device: ${NFS_DATA_PATH}
-  repository:
-#    driver_opts:
-#      type: nfs
-#      o: addr=${NFS_ADDRESS},nfsvers=4
-#      device: ${NFS_APPS_PATH}
   secrets:
   logs:
