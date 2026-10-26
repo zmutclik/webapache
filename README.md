@@ -4,7 +4,7 @@ Docker image LAMP stack (Linux, Apache, MariaDB, PHP) berbasis Debian yang siap 
 
 ## Fitur
 
-- ✅ **Debian Latest** sebagai base image
+- ✅ **Debian Trixie** sebagai base image
 - ✅ **Apache 2** dengan `mod_rewrite` dan `AllowOverride All`
 - ✅ **PHP** versi konfigurabel via build arg (`PHPVERSION`)
 - ✅ **MariaDB Client** bawaan untuk koneksi database
@@ -59,7 +59,7 @@ cp env.sample .env
 nano .env
 ```
 
-Atau gunakan script `env.sh` untuk generate password acak otomatis:
+Atau gunakan script `env.sh` untuk generate password acak otomatis (butuh `openssl`):
 
 ```bash
 chmod +x env.sh && ./env.sh
@@ -112,8 +112,9 @@ docker compose -f docker-compose_stack_full.yml up -d
 | `HOOK_PORT` | Port Git Webhook (host) | `7000` |
 | `SERVERNAME` | ServerName Apache | `example.com` |
 | `DOCUMENTROOT` | DocumentRoot Apache | `/var/www/html` |
-| `PHPVERSION` | Versi PHP (8.1, 8.2, 8.3, dsb) | `8.1` |
+| `PHPVERSION` | Versi PHP (8.2, 8.3, 8.4, dsb) | `8.3` |
 | `DB_HOST` | Host database | `mariadb` |
+| `APP_DEBUG` | `1` mengaktifkan `phpinfo.php` (jangan di production) | `0` |
 | `DB_ROOTPASSWORD` | Password root MariaDB | `password` |
 | `DB_APPUSER` | User aplikasi database | `user` |
 | `DB_APPPASS` | Password aplikasi database | `apppassword` |
@@ -146,13 +147,18 @@ Script akan:
 
 | Volume | Deskripsi |
 |---|---|
-| `datawww` | Data aplikasi web (`/var/www/html`) |
+| `datawww` | Data aplikasi web (`/var/www/html`), di mode full stack juga di-mount ke webhook sebagai `REPO_PATH` |
 | `data` | Data MariaDB (`/var/lib/mysql`) |
-| `repository` | Repository Git (untuk webhook) |
 | `secrets` | Secrets untuk webhook |
 | `logs` | Log webhook |
 
 > **Catatan**: Uncomment bagian `driver_opts` di docker-compose untuk mengaktifkan NFS mount.
+
+> **Auto-deploy**: panggil `POST /clone` di webhook sekali untuk inisialisasi. Endpoint ini **menghapus isi `datawww`** lalu meng-clone `GIT_URL_SSH`. Setelah itu push ke `BRANCH` otomatis di-pull. Jangan buka `HOOK_PORT` ke publik tanpa proxy/firewall, karena `/clone` dan `/manual-pull` tidak memakai autentikasi.
+
+## Log
+
+Log Apache dikirim ke stdout/stderr container, lihat dengan `docker logs <container>`.
 
 ## Network
 
@@ -165,7 +171,7 @@ Folder `www/` berisi contoh aplikasi PHP sederhana:
 - **index.php** — Dashboard LAMP Stack yang menampilkan versi Apache, PHP, dan status koneksi database
 - **config.php** — Membaca konfigurasi database dari environment variables
 - **test_db.php** — Halaman untuk mengetes koneksi database
-- **phpinfo.php** — Informasi lengkap konfigurasi PHP
+- **phpinfo.php** — Informasi lengkap konfigurasi PHP (hanya aktif jika `APP_DEBUG=1`)
 
 ## Docker Hub
 
@@ -174,7 +180,6 @@ Image tersedia di: [https://hub.docker.com/repository/docker/zmutclik/webapache/
 ```bash
 docker pull zmutclik/webapache:8.3
 docker pull zmutclik/webapache:8.2
-docker pull zmutclik/webapache:8.1
 ```
 
 ## Lisensi

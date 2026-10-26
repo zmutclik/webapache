@@ -28,6 +28,7 @@ services:
       - DB_USER=${DB_APPUSER}
       - DB_PASS=${DB_APPPASS}
       - DB_NAME=${DB_NAME}
+      - APP_DEBUG=${APP_DEBUG:-0}
     container_name: ${CONTAINER_NAME}
     hostname: ${HOSTNAME}
     restart: always
@@ -48,7 +49,7 @@ services:
     ports:
       - "${HOOK_PORT}:7000"
     volumes:
-      - repository:/app/repository
+      - datawww:${REPO_PATH:-/app/repository}
       - secrets:/app/secrets
       - logs:/app/logs
     environment:
@@ -79,10 +80,5 @@ volumes:
 #      type: nfs
 #      o: addr=${NFS_ADDRESS},nfsvers=4
 #      device: ${NFS_DATA_PATH}
-  repository:
-#    driver_opts:
-#      type: nfs
-#      o: addr=${NFS_ADDRESS},nfsvers=4
-#      device: ${NFS_APPS_PATH}
   secrets:
   logs:

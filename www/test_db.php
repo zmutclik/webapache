@@ -1,4 +1,9 @@
 <?php
+// Hanya aktif jika APP_DEBUG=1, karena membuka detail host & error koneksi database
+if (getenv('APP_DEBUG') !== '1') {
+    http_response_code(404);
+    exit;
+}
 require_once __DIR__ . '/config.php';
 try {
     $link = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
