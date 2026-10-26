@@ -31,7 +31,7 @@
                             <li>PHP<?= phpversion(); ?></li>
                             <li>DB-HOST = <?= $db_host; ?></li>
                             <li>DB-USER = <?= $db_user; ?></li>
-                            <li>DB-PASS = <?= $db_pass; ?></li>
+                            <li>DB-PASS = <?= $db_pass !== false && $db_pass !== '' ? '********' : '(kosong)'; ?></li>
                             <li>DB-NAME = <?= $db_name; ?></li>
                             <li><?php
                                 try {
@@ -55,8 +55,10 @@
                     <div class='content'>
                         <ul>
                             <li><b><?php echo date('Y-m-d H:i:s'); ?></b></li>
-                            <li><a href='http://<?php echo $_SERVER['HTTP_HOST']; ?>/phpinfo.php'>phpinfo()</a></li>
-                            <li><a href='http://<?php echo $_SERVER['HTTP_HOST']; ?>/test_db.php'>Test DB Connection</a></li>
+                            <?php if (getenv('APP_DEBUG') === '1'): ?>
+                            <li><a href='/phpinfo.php'>phpinfo()</a></li>
+                            <?php endif; ?>
+                            <li><a href='/test_db.php'>Test DB Connection</a></li>
                         </ul>
                     </div>
                 </div>

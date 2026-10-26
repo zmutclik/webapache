@@ -10,6 +10,7 @@ services:
       - DB_USER=user
       - DB_PASS=pass
       - DB_NAME=db
+      - APP_DEBUG=0
     container_name: example
     hostname: example
     restart: always

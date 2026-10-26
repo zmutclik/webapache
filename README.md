@@ -59,7 +59,7 @@ cp env.sample .env
 nano .env
 ```
 
-Atau gunakan script `env.sh` untuk generate password acak otomatis:
+Atau gunakan script `env.sh` untuk generate password acak otomatis (butuh `openssl`):
 
 ```bash
 chmod +x env.sh && ./env.sh
@@ -114,6 +114,7 @@ docker compose -f docker-compose_stack_full.yml up -d
 | `DOCUMENTROOT` | DocumentRoot Apache | `/var/www/html` |
 | `PHPVERSION` | Versi PHP (8.1, 8.2, 8.3, dsb) | `8.1` |
 | `DB_HOST` | Host database | `mariadb` |
+| `APP_DEBUG` | `1` mengaktifkan `phpinfo.php` (jangan di production) | `0` |
 | `DB_ROOTPASSWORD` | Password root MariaDB | `password` |
 | `DB_APPUSER` | User aplikasi database | `user` |
 | `DB_APPPASS` | Password aplikasi database | `apppassword` |
@@ -165,7 +166,7 @@ Folder `www/` berisi contoh aplikasi PHP sederhana:
 - **index.php** — Dashboard LAMP Stack yang menampilkan versi Apache, PHP, dan status koneksi database
 - **config.php** — Membaca konfigurasi database dari environment variables
 - **test_db.php** — Halaman untuk mengetes koneksi database
-- **phpinfo.php** — Informasi lengkap konfigurasi PHP
+- **phpinfo.php** — Informasi lengkap konfigurasi PHP (hanya aktif jika `APP_DEBUG=1`)
 
 ## Docker Hub
 
