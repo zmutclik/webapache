@@ -55,6 +55,8 @@ RUN apt update && apt -y upgrade \
     && a2enmod rewrite && phpenmod mbstring \
     && rm /var/www/html/index.html && sed -i "s/AllowOverride None/AllowOverride All/g" /etc/apache2/apache2.conf \
     && echo 'ServerName ${SERVERNAME}' | tee -a /etc/apache2/apache2.conf >/dev/null \
+    && sed -i -e 's/^ServerTokens .*/ServerTokens Prod/' -e 's/^ServerSignature .*/ServerSignature Off/' /etc/apache2/conf-available/security.conf \
+    && echo 'expose_php = Off' > /etc/php/$PHPVERSION/mods-available/security.ini && phpenmod security \
     && ln -sfT /dev/stderr /var/log/apache2/error.log \
     && ln -sfT /dev/stdout /var/log/apache2/access.log \
     && ln -sfT /dev/stdout /var/log/apache2/other_vhosts_access.log \
